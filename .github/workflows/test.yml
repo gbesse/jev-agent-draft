@@ -1,0 +1,18 @@
+name: test
+on: [push, pull_request]
+permissions: { contents: read }
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-node@v5
+        with: { node-version: 22 }
+      - run: npm test
+      - run: npm run check
+      - run: npm run demo
+      - run: npm run pack:plugin
+      - uses: actions/upload-artifact@v6
+        with:
+          name: jev-agent-draft-plugin
+          path: dist/jev-agent-draft-0.1.0.tgz

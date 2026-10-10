@@ -1,0 +1,18 @@
+{
+  "name": "jev-agent-draft",
+  "version": "0.1.0",
+  "description": "Draft the safest agent, MCP server, or skill for a task before installation",
+  "type": "module",
+  "bin": { "jev-agent-draft": "./src/cli.js" },
+  "exports": "./src/index.js",
+  "scripts": {
+    "test": "node --test",
+    "check": "node --check src/*.js && node --test && node scripts/check-package.js",
+    "demo": "node src/cli.js draft examples/code-review.candidates.json examples/code-review.jevreceipt.json",
+    "pack:plugin": "node scripts/pack-plugin.js"
+  },
+  "engines": { "node": ">=22" },
+  "keywords": ["agents", "mcp", "skills", "security", "decision", "codex", "chatgpt"],
+  "license": "MIT",
+  "repository": { "type": "git", "url": "https://github.com/gbesse/jev-agent-draft.git" }
+}

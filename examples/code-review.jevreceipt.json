@@ -1,0 +1,323 @@
+{
+  "$schema": "https://jev.dev/schemas/decision-receipt/v1",
+  "version": "1.0.0",
+  "createdAt": "2026-10-10T10:00:00.000Z",
+  "subject": "Choose a code-review agent for a public TypeScript repository",
+  "revision": "catalog@2026-10-10",
+  "producer": {
+    "name": "jev-agent-draft",
+    "version": "0.1.0",
+    "url": "https://github.com/gbesse/jev-agent-draft"
+  },
+  "candidates": [
+    {
+      "id": "needle",
+      "label": "Needle Review Agent",
+      "kind": "agent",
+      "source": "ard://example/needle"
+    },
+    {
+      "id": "atlas",
+      "label": "Atlas Dev Agent",
+      "kind": "agent",
+      "source": "ard://example/atlas"
+    },
+    {
+      "id": "lintleaf",
+      "label": "LintLeaf Skill",
+      "kind": "skill",
+      "source": "git://example/lintleaf@v2.3.1"
+    }
+  ],
+  "criteria": [
+    {
+      "id": "task_fit",
+      "label": "Task fit",
+      "weight": 5
+    },
+    {
+      "id": "permission_minimality",
+      "label": "Permission minimality",
+      "weight": 5
+    },
+    {
+      "id": "evidence_quality",
+      "label": "Evidence quality",
+      "weight": 4
+    },
+    {
+      "id": "maintenance",
+      "label": "Maintenance",
+      "weight": 3
+    },
+    {
+      "id": "portability",
+      "label": "Portability",
+      "weight": 2
+    }
+  ],
+  "evaluations": [
+    {
+      "candidateId": "needle",
+      "criterionId": "task_fit",
+      "score": 94,
+      "evidence": [
+        {
+          "ref": "ard://example/needle@sha256:9bd4"
+        },
+        {
+          "ref": "test://needle/typescript-review"
+        }
+      ]
+    },
+    {
+      "candidateId": "needle",
+      "criterionId": "permission_minimality",
+      "score": 96,
+      "evidence": [
+        {
+          "ref": "ard://example/needle@sha256:9bd4"
+        },
+        {
+          "ref": "test://needle/typescript-review"
+        }
+      ]
+    },
+    {
+      "candidateId": "needle",
+      "criterionId": "evidence_quality",
+      "score": 88,
+      "evidence": [
+        {
+          "ref": "ard://example/needle@sha256:9bd4"
+        },
+        {
+          "ref": "test://needle/typescript-review"
+        }
+      ]
+    },
+    {
+      "candidateId": "needle",
+      "criterionId": "maintenance",
+      "score": 92,
+      "evidence": [
+        {
+          "ref": "ard://example/needle@sha256:9bd4"
+        },
+        {
+          "ref": "test://needle/typescript-review"
+        }
+      ]
+    },
+    {
+      "candidateId": "needle",
+      "criterionId": "portability",
+      "score": 82,
+      "evidence": [
+        {
+          "ref": "ard://example/needle@sha256:9bd4"
+        },
+        {
+          "ref": "test://needle/typescript-review"
+        }
+      ]
+    },
+    {
+      "candidateId": "atlas",
+      "criterionId": "task_fit",
+      "score": 97,
+      "evidence": [
+        {
+          "ref": "ard://example/atlas@sha256:b51f"
+        },
+        {
+          "ref": "test://atlas/typescript-review"
+        }
+      ]
+    },
+    {
+      "candidateId": "atlas",
+      "criterionId": "permission_minimality",
+      "score": 38,
+      "evidence": [
+        {
+          "ref": "ard://example/atlas@sha256:b51f"
+        },
+        {
+          "ref": "test://atlas/typescript-review"
+        }
+      ]
+    },
+    {
+      "candidateId": "atlas",
+      "criterionId": "evidence_quality",
+      "score": 91,
+      "evidence": [
+        {
+          "ref": "ard://example/atlas@sha256:b51f"
+        },
+        {
+          "ref": "test://atlas/typescript-review"
+        }
+      ]
+    },
+    {
+      "candidateId": "atlas",
+      "criterionId": "maintenance",
+      "score": 95,
+      "evidence": [
+        {
+          "ref": "ard://example/atlas@sha256:b51f"
+        },
+        {
+          "ref": "test://atlas/typescript-review"
+        }
+      ]
+    },
+    {
+      "candidateId": "atlas",
+      "criterionId": "portability",
+      "score": 76,
+      "evidence": [
+        {
+          "ref": "ard://example/atlas@sha256:b51f"
+        },
+        {
+          "ref": "test://atlas/typescript-review"
+        }
+      ]
+    },
+    {
+      "candidateId": "lintleaf",
+      "criterionId": "task_fit",
+      "score": 79,
+      "evidence": [
+        {
+          "ref": "git://example/lintleaf@2a81"
+        },
+        {
+          "ref": "test://lintleaf/typescript-review"
+        }
+      ]
+    },
+    {
+      "candidateId": "lintleaf",
+      "criterionId": "permission_minimality",
+      "score": 100,
+      "evidence": [
+        {
+          "ref": "git://example/lintleaf@2a81"
+        },
+        {
+          "ref": "test://lintleaf/typescript-review"
+        }
+      ]
+    },
+    {
+      "candidateId": "lintleaf",
+      "criterionId": "evidence_quality",
+      "score": 68,
+      "evidence": [
+        {
+          "ref": "git://example/lintleaf@2a81"
+        },
+        {
+          "ref": "test://lintleaf/typescript-review"
+        }
+      ]
+    },
+    {
+      "candidateId": "lintleaf",
+      "criterionId": "maintenance",
+      "score": 78,
+      "evidence": [
+        {
+          "ref": "git://example/lintleaf@2a81"
+        },
+        {
+          "ref": "test://lintleaf/typescript-review"
+        }
+      ]
+    },
+    {
+      "candidateId": "lintleaf",
+      "criterionId": "portability",
+      "score": 96,
+      "evidence": [
+        {
+          "ref": "git://example/lintleaf@2a81"
+        },
+        {
+          "ref": "test://lintleaf/typescript-review"
+        }
+      ]
+    }
+  ],
+  "verdict": {
+    "status": "selected",
+    "candidateId": "needle",
+    "confidence": 0.5303,
+    "ranking": [
+      {
+        "candidateId": "needle",
+        "eligible": true,
+        "score": 91.6842,
+        "hardFailures": [],
+        "requestedPermissions": [
+          "repository:read",
+          "pull_requests:read",
+          "checks:read"
+        ],
+        "maintenanceAgeDays": 12
+      },
+      {
+        "candidateId": "lintleaf",
+        "eligible": true,
+        "score": 83.8421,
+        "hardFailures": [],
+        "requestedPermissions": [
+          "repository:read"
+        ],
+        "maintenanceAgeDays": 56
+      },
+      {
+        "candidateId": "atlas",
+        "eligible": false,
+        "score": 77.6842,
+        "hardFailures": [
+          "permissions outside policy: repository:write"
+        ],
+        "requestedPermissions": [
+          "repository:read",
+          "pull_requests:read",
+          "checks:read",
+          "repository:write"
+        ],
+        "maintenanceAgeDays": 9
+      }
+    ],
+    "reasons": [
+      "needle passed every hard gate and leads by 7.84 points"
+    ]
+  },
+  "provenance": {
+    "method": "hard-gates+weighted-sum",
+    "generatedBy": "software",
+    "observedAt": "2026-10-10T10:00:00.000Z",
+    "policy": {
+      "allowedPermissions": [
+        "repository:read",
+        "pull_requests:read",
+        "checks:read"
+      ],
+      "maxMaintenanceAgeDays": 180,
+      "minimumScore": 70,
+      "minimumMargin": 5
+    }
+  },
+  "id": "jvr_3212b51495a04bcae6d6",
+  "integrity": {
+    "algorithm": "sha256",
+    "digest": "3212b51495a04bcae6d6606afe0234a09254c71810986fc12c14bd023b56589f"
+  }
+}

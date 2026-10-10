@@ -1,0 +1,12 @@
+{
+  "name": "jev-labs",
+  "interface": { "displayName": "Jev Labs" },
+  "plugins": [
+    {
+      "name": "jev-agent-draft",
+      "source": { "source": "local", "path": "./" },
+      "policy": { "installation": "AVAILABLE", "authentication": "ON_INSTALL" },
+      "category": "Productivity"
+    }
+  ]
+}

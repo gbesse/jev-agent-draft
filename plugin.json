@@ -1,0 +1,36 @@
+{
+  "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
+  "name": "jev-agent-draft",
+  "version": "0.1.0",
+  "description": "Compare agents, MCP servers, and skills against explicit task, permission, evidence, and maintenance requirements before installation.",
+  "author": {
+    "name": "Guillaume Besse",
+    "url": "https://github.com/gbesse"
+  },
+  "homepage": "https://github.com/gbesse/jev-agent-draft",
+  "repository": "https://github.com/gbesse/jev-agent-draft",
+  "license": "MIT",
+  "keywords": ["agents", "mcp", "skills", "security", "decision"],
+  "extensions": {
+    "com.openai": {
+      "onboardingSkill": "./skills/setup/SKILL.md",
+      "interface": {
+        "displayName": "Jev Agent Draft",
+        "shortDescription": "Choose the right agent before granting access.",
+        "longDescription": "A local-first draft room for comparing agents, MCP servers, and skills. It hard-gates excessive permissions and stale candidates, scores only explicit evidence, abstains when the margin is weak, and emits a tamper-evident decision receipt.",
+        "developerName": "Guillaume Besse",
+        "category": "Productivity",
+        "capabilities": ["Read"],
+        "websiteURL": "https://github.com/gbesse/jev-agent-draft",
+        "privacyPolicyURL": "https://github.com/gbesse/jev-agent-draft/blob/main/PRIVACY.md",
+        "termsOfServiceURL": "https://github.com/gbesse/jev-agent-draft/blob/main/TERMS.md",
+        "defaultPrompt": [
+          "Compare these agents for my task and produce a decision receipt.",
+          "Which MCP server asks for the least privilege while meeting my requirements?",
+          "Audit this skill shortlist and abstain if the evidence is too weak."
+        ],
+        "brandColor": "#8DFFCF"
+      }
+    }
+  }
+}

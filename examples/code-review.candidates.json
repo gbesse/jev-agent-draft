@@ -1,0 +1,43 @@
+{
+  "task": "Choose a code-review agent for a public TypeScript repository",
+  "revision": "catalog@2026-10-10",
+  "observedAt": "2026-10-10T10:00:00.000Z",
+  "policy": {
+    "allowedPermissions": ["repository:read", "pull_requests:read", "checks:read"],
+    "maxMaintenanceAgeDays": 180,
+    "minimumScore": 70,
+    "minimumMargin": 5
+  },
+  "candidates": [
+    {
+      "id": "needle",
+      "label": "Needle Review Agent",
+      "kind": "agent",
+      "source": "ard://example/needle",
+      "updatedAt": "2026-09-28T00:00:00.000Z",
+      "permissions": ["repository:read", "pull_requests:read", "checks:read"],
+      "ratings": { "task_fit": 94, "permission_minimality": 96, "evidence_quality": 88, "maintenance": 92, "portability": 82 },
+      "evidence": ["ard://example/needle@sha256:9bd4", "test://needle/typescript-review"]
+    },
+    {
+      "id": "atlas",
+      "label": "Atlas Dev Agent",
+      "kind": "agent",
+      "source": "ard://example/atlas",
+      "updatedAt": "2026-10-01T00:00:00.000Z",
+      "permissions": ["repository:read", "pull_requests:read", "checks:read", "repository:write"],
+      "ratings": { "task_fit": 97, "permission_minimality": 38, "evidence_quality": 91, "maintenance": 95, "portability": 76 },
+      "evidence": ["ard://example/atlas@sha256:b51f", "test://atlas/typescript-review"]
+    },
+    {
+      "id": "lintleaf",
+      "label": "LintLeaf Skill",
+      "kind": "skill",
+      "source": "git://example/lintleaf@v2.3.1",
+      "updatedAt": "2026-08-15T00:00:00.000Z",
+      "permissions": ["repository:read"],
+      "ratings": { "task_fit": 79, "permission_minimality": 100, "evidence_quality": 68, "maintenance": 78, "portability": 96 },
+      "evidence": ["git://example/lintleaf@2a81", "test://lintleaf/typescript-review"]
+    }
+  ]
+}
