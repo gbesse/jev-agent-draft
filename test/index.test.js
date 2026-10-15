@@ -37,3 +37,18 @@ test("creates a Decision Receipt v1 artifact", () => {
   assert.equal(receipt.integrity.digest.length, 64);
 });
 test("receipt generation is deterministic", () => assert.deepEqual(createDraftReceipt(fixture), createDraftReceipt(fixture)));
+
+test('nonfinite or out-of-range policy thresholds cannot silently select a candidate',()=>{
+ for(const field of ['minimumScore','minimumMargin','maxMaintenanceAgeDays'])for(const value of [NaN,Infinity,-1,'0',true]){
+  const input=structuredClone(fixture);input.policy[field]=value;assert.throws(()=>evaluateCandidates(input),/Invalid policy/);
+ }
+ const input=structuredClone(fixture);input.policy.allowedPermissions='repository:read';assert.throws(()=>evaluateCandidates(input),/Invalid policy/);
+});
+test('receipt digest survives JSON roundtrip with missing optional fields and ratings',()=>{
+ const input=structuredClone(fixture);delete input.revision;delete input.candidates[0].ratings;
+ const receipt=createDraftReceipt(input),parsed=JSON.parse(JSON.stringify(receipt));
+ const {id,integrity,...payload}=parsed;
+ assert.equal(canonicalize(payload),canonicalize((({id,integrity,...rest})=>rest)(receipt)));
+ assert.equal(parsed.evaluations[0].score,null);
+ assert.equal(parsed.verdict.ranking.find(x=>x.candidateId==='needle').eligible,false);
+});

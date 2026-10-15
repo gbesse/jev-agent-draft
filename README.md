@@ -61,3 +61,11 @@ Version 0.1 evaluates evidence supplied by the user or another trusted collector
 ## License
 
 MIT
+
+## Explicit policy bounds / Bornes explicites / Límites explícitos
+
+EN: Drafting refuses malformed permission lists, nonfinite thresholds, negative maintenance ages and scores/margins outside 0–100. Missing ratings remain a candidate hard failure and appear as `null` in receipt evaluations. Missing optional object fields are omitted canonically, so a receipt digest survives JSON serialization. This compares supplied ratings/evidence; it authenticates no catalog, installs no agent and grants no permission.
+
+FR : La sélection refuse les listes de permissions mal formées, seuils non finis, âges négatifs et scores/marges hors 0–100. Des notes absentes restent un échec candidat et apparaissent comme `null` dans le reçu. Les champs objet optionnels absents sont omis canoniquement : le hash reste stable après sérialisation JSON. Cela compare des notes/preuves fournies ; aucun catalogue n’est authentifié, aucun agent installé, aucune permission accordée.
+
+ES: Rechaza listas de permisos incorrectas, umbrales no finitos, edades negativas y puntuaciones/márgenes fuera de 0–100. Notas ausentes siguen siendo fallo de candidato y aparecen como `null` en el recibo. Omite canónicamente campos opcionales ausentes: el hash permanece estable tras serializar JSON. Compara notas/pruebas proporcionadas; no autentica catálogos, instala agentes ni concede permisos.
