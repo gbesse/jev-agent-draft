@@ -1,6 +1,6 @@
 {
   "name": "jev-agent-draft",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Draft the safest agent, MCP server, or skill for a task before installation",
   "type": "module",
   "bin": { "jev-agent-draft": "./src/cli.js" },

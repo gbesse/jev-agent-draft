@@ -10,7 +10,7 @@ export const DIMENSIONS = [
 
 export function canonicalize(value) {
   if (Array.isArray(value)) return `[${value.map(canonicalize).join(",")}]`;
-  if (value && typeof value === "object") return `{${Object.keys(value).sort().map((key) => `${JSON.stringify(key)}:${canonicalize(value[key])}`).join(",")}}`;
+  if (value && typeof value === "object") return `{${Object.keys(value).filter(key => value[key] !== undefined).sort().map((key) => `${JSON.stringify(key)}:${canonicalize(value[key])}`).join(",")}}`;
   if (typeof value === "number" && !Number.isFinite(value)) throw new TypeError("non-finite value");
   return JSON.stringify(value);
 }
@@ -26,6 +26,14 @@ export function evaluateCandidates(input) {
   if (!Array.isArray(input.candidates) || input.candidates.length < 2 || input.candidates.length > 32) throw new TypeError("candidates must contain 2-32 items");
   if (input.candidates.some((candidate) => !portableId(candidate.id)) || unique(input.candidates.map((candidate) => candidate.id)).length !== input.candidates.length) throw new TypeError("candidate ids must be unique portable identifiers");
   const policy = input.policy ?? {};
+  const invalidPolicy = 'Politique invalide : permissions, âge, score et marge bornés requis / Invalid policy: bounded permissions, age, score and margin required / Política inválida: permisos, edad, puntuación y margen limitados requeridos';
+  const permissions = value => Array.isArray(value) && value.length <= 128 && value.every(x => typeof x === 'string' && x.trim() && x.length <= 256) && unique(value).length === value.length;
+  if (!policy || typeof policy !== 'object' || Array.isArray(policy) ||
+      !permissions(policy.allowedPermissions ?? []) ||
+      !Number.isSafeInteger(policy.maxMaintenanceAgeDays ?? 365) || (policy.maxMaintenanceAgeDays ?? 365) < 0 || (policy.maxMaintenanceAgeDays ?? 365) > 36500 ||
+      !Number.isFinite(policy.minimumScore ?? 70) || (policy.minimumScore ?? 70) < 0 || (policy.minimumScore ?? 70) > 100 ||
+      !Number.isFinite(policy.minimumMargin ?? 5) || (policy.minimumMargin ?? 5) < 0 || (policy.minimumMargin ?? 5) > 100 ||
+      input.candidates.some(candidate => !permissions(candidate.permissions ?? []))) throw new TypeError(invalidPolicy);
   const allowed = new Set(policy.allowedPermissions ?? []);
   const maxAgeDays = policy.maxMaintenanceAgeDays ?? 365;
   const now = Date.parse(input.observedAt);
@@ -76,7 +84,7 @@ export function createDraftReceipt(input) {
   const evaluations = input.candidates.flatMap((candidate) => DIMENSIONS.map((dimension) => ({
     candidateId: candidate.id,
     criterionId: dimension.id,
-    score: candidate.ratings[dimension.id],
+    score: candidate.ratings?.[dimension.id] ?? null,
     evidence: (candidate.evidence ?? []).map((ref) => typeof ref === "string" ? { ref } : ref)
   })));
   const receipt = {
@@ -85,7 +93,7 @@ export function createDraftReceipt(input) {
     createdAt: input.observedAt,
     subject: input.task,
     revision: input.revision,
-    producer: { name: "jev-agent-draft", version: "0.1.0", url: "https://github.com/gbesse/jev-agent-draft" },
+    producer: { name: "jev-agent-draft", version: "0.1.1", url: "https://github.com/gbesse/jev-agent-draft" },
     candidates: input.candidates.map(({ id, label, kind, source }) => ({ id, label, kind, source })),
     criteria,
     evaluations,
