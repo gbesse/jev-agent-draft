@@ -1,12 +1,12 @@
 import { createHash } from "node:crypto";
 
-export const DIMENSIONS = [
+export const DIMENSIONS = Object.freeze([
   { id: "task_fit", label: "Task fit", weight: 5 },
   { id: "permission_minimality", label: "Permission minimality", weight: 5 },
   { id: "evidence_quality", label: "Evidence quality", weight: 4 },
   { id: "maintenance", label: "Maintenance", weight: 3 },
   { id: "portability", label: "Portability", weight: 2 }
-];
+].map(dimension => Object.freeze(dimension)));
 
 export function canonicalize(value) {
   if (Array.isArray(value)) return `[${value.map(canonicalize).join(",")}]`;
@@ -93,7 +93,7 @@ export function createDraftReceipt(input) {
     createdAt: input.observedAt,
     subject: input.task,
     revision: input.revision,
-    producer: { name: "jev-agent-draft", version: "0.1.1", url: "https://github.com/gbesse/jev-agent-draft" },
+    producer: { name: "jev-agent-draft", version: "0.1.2", url: "https://github.com/gbesse/jev-agent-draft" },
     candidates: input.candidates.map(({ id, label, kind, source }) => ({ id, label, kind, source })),
     criteria,
     evaluations,
@@ -102,7 +102,7 @@ export function createDraftReceipt(input) {
   };
   const payload = structuredClone(receipt);
   const digest = createHash("sha256").update(canonicalize(payload)).digest("hex");
-  receipt.id = `jvr_${digest.slice(0, 20)}`;
-  receipt.integrity = { algorithm: "sha256", digest };
-  return receipt;
+  payload.id = `jvr_${digest.slice(0, 20)}`;
+  payload.integrity = { algorithm: "sha256", digest };
+  return payload;
 }

@@ -52,3 +52,19 @@ test('receipt digest survives JSON roundtrip with missing optional fields and ra
  assert.equal(parsed.evaluations[0].score,null);
  assert.equal(parsed.verdict.ranking.find(x=>x.candidateId==='needle').eligible,false);
 });
+
+
+test('returned integrity artifact never aliases caller policy, evidence or subject',async()=>{
+ const {createHash}=await import('node:crypto');
+ const input=structuredClone(fixture);input.task={description:'synthetic task'};input.candidates[0].evidence=[{ref:'https://example.test/synthetic',metadata:{source:'synthetic'}}];
+ const receipt=createDraftReceipt(input),before=JSON.stringify(receipt);
+ input.policy.minimumScore=0;input.task.description='mutated';input.candidates[0].evidence[0].metadata.source='mutated';
+ assert.equal(JSON.stringify(receipt),before);
+ const {id,integrity,...payload}=JSON.parse(JSON.stringify(receipt));assert.equal(createHash('sha256').update(canonicalize(payload)).digest('hex'),integrity.digest);
+ receipt.provenance.policy.minimumScore=99;assert.equal(input.policy.minimumScore,0);
+});
+test('exported fixed scoring dimensions cannot silently change future decisions',async()=>{
+ const {DIMENSIONS}=await import('../src/index.js');const before=evaluateCandidates(fixture);
+ assert.throws(()=>{DIMENSIONS[0].weight=0;},TypeError);assert.throws(()=>{DIMENSIONS.pop();},TypeError);
+ assert.deepEqual(evaluateCandidates(fixture),before);
+});
