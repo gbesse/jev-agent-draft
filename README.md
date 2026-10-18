@@ -69,3 +69,10 @@ EN: Drafting refuses malformed permission lists, nonfinite thresholds, negative 
 FR : La sélection refuse les listes de permissions mal formées, seuils non finis, âges négatifs et scores/marges hors 0–100. Des notes absentes restent un échec candidat et apparaissent comme `null` dans le reçu. Les champs objet optionnels absents sont omis canoniquement : le hash reste stable après sérialisation JSON. Cela compare des notes/preuves fournies ; aucun catalogue n’est authentifié, aucun agent installé, aucune permission accordée.
 
 ES: Rechaza listas de permisos incorrectas, umbrales no finitos, edades negativas y puntuaciones/márgenes fuera de 0–100. Notas ausentes siguen siendo fallo de candidato y aparecen como `null` en el recibo. Omite canónicamente campos opcionales ausentes: el hash permanece estable tras serializar JSON. Compara notas/pruebas proporcionadas; no autentica catálogos, instala agentes ni concede permisos.
+
+
+FR : Le reçu retourné est une copie indépendante des entrées, y compris sujet, politique et références de preuve. Les modifications ultérieures de ces entrées ne changent plus un artefact déjà haché. Les dimensions et poids exportés sont immuables. Modifier directement le reçu invalide toujours son intégrité : le hash n’est ni une signature ni une preuve d’authenticité.
+
+EN: Returned receipts are detached copies of inputs, including subject, policy and evidence references. Later input mutations no longer change an already hashed artifact. Exported dimensions and weights are immutable. Editing the receipt itself still invalidates its integrity: the hash is neither a signature nor proof of authenticity.
+
+ES: Los recibos devueltos son copias independientes de las entradas, incluidos asunto, política y referencias de prueba. Las mutaciones posteriores de entradas ya no cambian un artefacto calculado. Las dimensiones y pesos exportados son inmutables. Editar el propio recibo sigue invalidando su integridad: el hash no es firma ni prueba de autenticidad.
